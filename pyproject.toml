@@ -1,0 +1,20 @@
+[project]
+name = "monitaudit-examples"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "informatie", email = "4531204+informatie@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "monitaudit>=0.1.0",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+monitaudit-examples = "monitaudit_examples:main"
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"
