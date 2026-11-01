@@ -25,3 +25,4 @@ volume/
 dev_*/
 var/
 .env
+examples/output
