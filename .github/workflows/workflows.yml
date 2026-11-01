@@ -1,0 +1,94 @@
+# .github/workflows/workflow.yaml
+
+name: MonitAudit Examples
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate MonitAudit Examples
+    runs-on: ubuntu-latest
+
+    env:
+      MONITAUDIT_ENV: dev
+      PYTHONUNBUFFERED: "1"
+
+    steps:
+      # --------------------------------------------------------
+      # Checkout
+      # --------------------------------------------------------
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # Python / uv
+      # --------------------------------------------------------
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # --------------------------------------------------------
+      # Dependencies
+      # --------------------------------------------------------
+
+      - name: Install dependencies
+        run: uv sync --all-groups
+
+      # --------------------------------------------------------
+      # Environment information
+      # --------------------------------------------------------
+
+      - name: Show environment
+        run: |
+          echo "Working directory: $(pwd)"
+          echo "MONITAUDIT_ENV=${MONITAUDIT_ENV}"
+          uv --version
+          uv run python --version
+
+      # --------------------------------------------------------
+      # Static validation
+      # --------------------------------------------------------
+
+      - name: Ruff
+        run: uv run ruff check .
+
+      - name: Mypy
+        run: uv run mypy .
+
+      - name: Pyright
+        run: uv run pyright
+
+      # --------------------------------------------------------
+      # Tests
+      # --------------------------------------------------------
+
+      - name: Run tests
+        run: uv run pytest
+
+      # --------------------------------------------------------
+      # Example structure
+      # --------------------------------------------------------
+
+      - name: Show example scripts
+        run: |
+          find scripts -type f -name "main_*.py" -print | sort
