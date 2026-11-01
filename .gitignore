@@ -23,4 +23,5 @@ MANIFEST
 .uv/
 volume/
 dev_*/
+var/
 .env

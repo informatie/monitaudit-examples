@@ -1,0 +1,34 @@
+# examples/config/main_errors.yaml
+
+monitaudit:
+  application: monitaudit-example-errors
+
+  global:
+
+    logging:
+      level: DEBUG
+      timer: true
+      parameters: true
+      max_parameter_length: 1000
+      sink_failure_mode: continue
+
+    sinks:
+      console_sink:
+        enabled: true
+
+      json_sink:
+        enabled: true
+        path: output/main_errors.jsonl
+
+      file_sink:
+        enabled: true
+        path: output/main_errors.log
+
+      delta_sink:
+        enabled: false
+        table: main.logging.monitaudit_errors
+
+  environments:
+    dev: {}
+    acc: {}
+    prod: {}

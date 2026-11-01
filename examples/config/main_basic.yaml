@@ -2,8 +2,6 @@ monitaudit:
   application: monitaudit-example-basic
 
   global:
-    is_databricks: false
-
     logging:
       level: DEBUG
       timer: true
@@ -14,61 +12,26 @@ monitaudit:
     sinks:
       console_sink:
         enabled: true
-
-        # Values to display after the console message when available.
-        #
-        # ConsoleSink looks first in trace parameters and then in normal
-        # structured log attributes.
         parameters:
-          - ws_nummer
-          - ws_naam
-          - workspace_count
-          - processed_elements
+          - cust_nummer
+          - cust_naam
+          - customer_count
+          - processed_orders
           - reason
 
       json_sink:
         enabled: true
-        path: logs/examples/main_basic.jsonl
+        path: output/json_sink/main_basic.jsonl
 
       file_sink:
         enabled: true
-        path: logs/examples/main_basic.log
+        path: output/file_sink/main_basic.log
 
-      # Keep the basic example independent of Spark.
       delta_sink:
         enabled: false
         table: main.logging.monitaudit_basic
 
-  dev:
-    is_databricks: false
-
-    logging:
-      level: DEBUG
-
-    sinks:
-      console_sink:
-        enabled: true
-
-        parameters:
-          - ws_nummer
-          - ws_naam
-          - workspace_count
-          - processed_elements
-          - reason
-
-      json_sink:
-        enabled: true
-        path: logs/examples/main_basic.jsonl
-
-      file_sink:
-        enabled: true
-        path: logs/examples/main_basic.log
-
-      delta_sink:
-        enabled: false
-
-  acc:
-    is_databricks: false
-
-  prod:
-    is_databricks: false
+  environments:
+    dev: {}
+    acc: {}
+    prod: {}

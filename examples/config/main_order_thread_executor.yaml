@@ -1,0 +1,31 @@
+monitaudit:
+  application: monitaudit-example-order-thread-executor
+
+  global:
+    logging:
+      level: DEBUG
+      timer: true
+      parameters: true
+      max_parameter_length: 1000
+      sink_failure_mode: continue
+
+    sinks:
+      console_sink:
+        enabled: true
+
+      json_sink:
+        enabled: true
+        path: output/json_sink/main_order_thread_executor.jsonl
+
+      file_sink:
+        enabled: true
+        path: output/file_sink/main_order_thread_executor.log
+
+      delta_sink:
+        enabled: false
+        table: main.logging.order_thread_executor
+
+  environments:
+    dev: {}
+    acc: {}
+    prod: {}
