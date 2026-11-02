@@ -29,8 +29,6 @@ monitaudit:
         path: var/logs/monitaudit/file_sink/monitaudit.txt
 
   dev:
-    is_databricks: false
-
     sinks:
       console_sink:
         enabled: true
@@ -39,8 +37,6 @@ monitaudit:
         table: dev.monitaudit_logs
   
   acc:
-    is_databricks: true
-
     logging:
       level: INFO
 
@@ -52,7 +48,6 @@ monitaudit:
         table: acc.monitaudit_logs
 
   prod:
-    is_databricks: true
 
     logging:
       level: WARNING
